@@ -82,14 +82,15 @@
                         <p class="text-[10px] uppercase tracking-widest text-gold font-bold text-center">Important: We have a strict headcount. Please RSVP for invited guests only.</p>
                     </div>
 
+                    <!-- Main Guest Info -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">First Name</label>
-                            <input type="text" name="firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
+                            <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Last Name</label>
-                            <input type="text" name="lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
+                            <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
                         </div>
                     </div>
 
@@ -103,21 +104,47 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400 italic text-gold">Invited Adults (Max 2)</label>
-                            <select name="adults_count" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
+                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400 italic text-gold">Total Invited Adults</label>
+                            <select id="adults_count" name="adults_count" onchange="updateDynamicFields()" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
                                 <option value="1">1 Invited Guest</option>
                                 <option value="2">2 Invited Guests</option>
                             </select>
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
-                            <input type="number" name="children" min="0" max="10" value="0" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <select id="children_count" name="children_count" onchange="updateDynamicFields()" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                                <option value="0">No Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                                <option value="3">3 Children</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="space-y-2">
-                        <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest Names & Dietary Needs</label>
-                        <textarea name="dietary_and_names" rows="3" placeholder="Please list names for all guests attending..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold"></textarea>
+                    <!-- Dynamic Guest 2 Info -->
+                    <div id="guest-two-section" class="hidden space-y-4 pt-4 border-t border-gray-100">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
+                                <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
+                                <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Children Section -->
+                    <div id="children-names-section" class="hidden space-y-6 pt-4 border-t border-gray-100">
+                        <div id="children-inputs-container" class="space-y-6">
+                            <!-- JS will inject children name inputs here -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-4">
+                        <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
+                        <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments for the couple..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold"></textarea>
                     </div>
 
                     <div class="pt-6">
@@ -142,7 +169,6 @@
             const locked = document.getElementById('locked-screen');
             const main = document.getElementById('main-content');
             
-            // THE PASSCODE IS SET BELOW
             if (input === 'JoeyFiona2027') {
                 locked.style.opacity = '0';
                 setTimeout(() => {
@@ -156,7 +182,45 @@
             }
         }
 
-        // Allow 'Enter' key to submit passcode
+        function updateDynamicFields() {
+            // Handle Adult Guest 2
+            const adults = document.getElementById('adults_count').value;
+            const guestTwoSection = document.getElementById('guest-two-section');
+            if (adults === "2") {
+                guestTwoSection.classList.remove('hidden');
+            } else {
+                guestTwoSection.classList.add('hidden');
+            }
+
+            // Handle Children Names
+            const childrenCount = parseInt(document.getElementById('children_count').value);
+            const childrenSection = document.getElementById('children-names-section');
+            const container = document.getElementById('children-inputs-container');
+            
+            container.innerHTML = ''; // Clear previous
+
+            if (childrenCount > 0) {
+                childrenSection.classList.remove('hidden');
+                for (let i = 1; i <= childrenCount; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+                    div.innerHTML = `
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} First Name</label>
+                            <input type="text" name="child_${i}_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} Last Name</label>
+                            <input type="text" name="child_${i}_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }
+            } else {
+                childrenSection.classList.add('hidden');
+            }
+        }
+
         document.getElementById('passcode-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 checkPasscode();
