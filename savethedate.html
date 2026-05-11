@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Date | Joey & Fiona 07.08.2027</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #b59410; --cream: #fdfbf7; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--cream); }
+        h1, h2, .serif { font-family: 'Cormorant Garamond', serif; }
+        .fade-in { animation: fadeIn 2s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .countdown-item { min-width: 80px; }
+        
+        .gallery-img {
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+        .gallery-img:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased overflow-x-hidden">
+
+    <main class="min-h-screen flex flex-col items-center justify-center px-6 py-12">
+        <div class="max-w-4xl w-full text-center fade-in">
+            <span class="uppercase tracking-[0.4em] text-xs text-gray-500 mb-6 block">Please Save the Date</span>
+            <h1 class="text-6xl md:text-9xl font-light mb-4 tracking-tight">Joey & Fiona</h1>
+            
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <div class="h-px w-12 bg-gray-300"></div>
+                <p class="serif text-2xl md:text-3xl italic text-gray-600">Are getting married</p>
+                <div class="h-px w-12 bg-gray-300"></div>
+            </div>
+
+            <div class="mb-12">
+                <p class="serif text-4xl md:text-5xl font-semibold mb-2">07 . 08 . 2027</p>
+                <p class="uppercase tracking-widest text-sm text-gray-500">Saturday | Victoria, Australia</p>
+            </div>
+
+            <div id="countdown" class="flex flex-wrap justify-center gap-4 md:gap-8 mb-16 opacity-0 transition-opacity duration-1000">
+                <div class="countdown-item">
+                    <span id="days" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Mins</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Secs</span>
+                </div>
+            </div>
+
+            <div class="mb-20">
+                <h2 class="serif text-3xl md:text-4xl mb-8 italic text-gray-700">Captured Moments</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200">
+                        <img src="https://placehold.co/600x800/e2e8f0/64748b?text=Photo+1" alt="Prewedding 1" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
+                    </div>
+                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200 md:translate-y-8">
+                        <img src="https://placehold.co/600x800/e2e8f0/64748b?text=Photo+2" alt="Prewedding 2" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
+                    </div>
+                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200">
+                        <img src="https://placehold.co/600x800/e2e8f0/64748b?text=Photo+3" alt="Prewedding 3" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
+                    </div>
+                </div>
+                <p class="text-xs uppercase tracking-widest text-gray-400 mt-12">More to come in our formal invitation</p>
+            </div>
+
+            <div class="space-y-6">
+                <p class="text-gray-500 italic max-w-lg mx-auto">
+                    Formal invitation with venue details to follow. We can't wait to celebrate with you and your families!
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <button onclick="addToCalendar()" class="px-8 py-3 bg-[#b59410] text-white rounded-full uppercase tracking-widest text-xs font-bold hover:bg-[#947a0d] transition-all transform hover:-translate-y-1 shadow-lg">
+                        Add to Calendar
+                    </button>
+                    <a href="mailto:josephnguyen5639@gmail.com" class="px-8 py-3 border border-gray-300 rounded-full uppercase tracking-widest text-xs font-bold hover:bg-white transition-all text-gray-600">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const weddingDate = new Date("Aug 7, 2027 17:00:00").getTime();
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("countdown").classList.remove('opacity-0');
+        }, 1000);
+
+        function addToCalendar() {
+            const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+            const details = '&text=Wedding+of+Joey+%26+Fiona&dates=20270807T070000Z/20270807T130000Z&details=Kids+welcome!+Formal+invitation+to+follow.&location=Victoria,+Australia';
+            window.open(baseUrl + details, '_blank');
+        }
+    </script>
+</body>
+</html>
