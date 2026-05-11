@@ -42,7 +42,7 @@
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-4xl mb-8">The Celebration</h2>
             <p class="text-gray-600 mb-12 italic">
-                "You are cordially invited to celebrate our wedding. We can't wait to share our special day with the people we love most."
+                "You are cordially invited to celebrate our wedding. We can't wait to share our special day with all our friends and family, big and small."
             </p>
 
             <div class="grid md:grid-cols-3 gap-8 text-sm uppercase tracking-widest">
@@ -75,7 +75,7 @@
                         <strong>Wishing Well:</strong> Your presence is our greatest gift. However, should you wish to contribute, a wishing well will be available to help us toward our honeymoon and our first home together.
                     </li>
                     <li>
-                        <strong>Adults Only:</strong> To allow all guests to relax and enjoy themselves, we have chosen to make our special day adults-only.
+                        <strong>Children:</strong> We love your little ones! Children of all ages are more than welcome to join us for the ceremony and reception. 
                     </li>
                 </ul>
             </div>
@@ -89,46 +89,44 @@
                 <p class="text-gray-500 text-sm">Please respond by March 10th, 2027</p>
             </div>
 
-            <!-- Replace josephnguyen5639@gmail.com with the Formspree endpoint after first use if needed -->
             <form action="https://formspree.io/f/josephnguyen5639@gmail.com" method="POST" id="rsvpForm" class="space-y-6">
                 
                 <div>
-                    <label class="block text-xs uppercase tracking-widest font-bold mb-2">Full Names of Guests</label>
+                    <label class="block text-xs uppercase tracking-widest font-bold mb-2">Full Names of Adults</label>
                     <input type="text" name="names" required placeholder="e.g. Joey & Fiona Nguyen" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none transition-all">
                 </div>
 
-                <div>
-                    <label class="block text-xs uppercase tracking-widest font-bold mb-2">Will you be attending?</label>
-                    <div class="flex space-x-4">
-                        <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="attendance" value="attending" required class="hidden peer">
-                            <div class="p-4 border border-gray-200 rounded-xl text-center peer-checked:bg-gold peer-checked:text-white transition-all">Joyfully Attend</div>
-                        </label>
-                        <label class="flex-1 cursor-pointer">
-                            <input type="radio" name="attendance" value="declining" class="hidden peer">
-                            <div class="p-4 border border-gray-200 rounded-xl text-center peer-checked:bg-gray-800 peer-checked:text-white transition-all">Regretfully Decline</div>
-                        </label>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest font-bold mb-2">Will you attend?</label>
+                        <select name="attendance" required class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none bg-white">
+                            <option value="attending">Joyfully Attend</option>
+                            <option value="declining">Regretfully Decline</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest font-bold mb-2">Number of Kids</label>
+                        <input type="number" name="children" min="0" placeholder="0" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs uppercase tracking-widest font-bold mb-2">Dietary Requirements</label>
-                    <textarea name="dietary" rows="2" placeholder="e.g. Vegetarian, Nut Allergy, etc." class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none"></textarea>
+                    <label class="block text-xs uppercase tracking-widest font-bold mb-2">Dietary Requirements (Include Kids)</label>
+                    <textarea name="dietary" rows="2" placeholder="e.g. 1 Vegan, 1 Nut Allergy" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none"></textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs uppercase tracking-widest font-bold mb-2">Song Request</label>
-                    <input type="text" name="song" placeholder="What will get you on the dancefloor?" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none">
+                    <input type="text" name="song" placeholder="What will get the whole family dancing?" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gold outline-none">
                 </div>
 
                 <button type="submit" class="w-full py-5 btn-gold rounded-xl uppercase tracking-[0.2em] text-sm font-bold shadow-md">Submit RSVP</button>
             </form>
 
-            <!-- Success Message -->
             <div id="successMessage" class="hidden text-center py-10 space-y-4">
                 <div class="text-4xl text-green-500">✓</div>
                 <h3 class="text-2xl">Thank You!</h3>
-                <p class="text-gray-600">Your RSVP has been sent to Joey & Fiona.</p>
+                <p class="text-gray-600">Your family's RSVP has been sent to Joey & Fiona.</p>
                 <button onclick="location.reload()" class="text-xs text-gold underline uppercase tracking-widest">Send another response</button>
             </div>
         </div>
@@ -143,8 +141,6 @@
         const successMessage = document.getElementById('successMessage');
 
         form.addEventListener('submit', async (e) => {
-            // We'll let Formspree handle the actual redirection or we can use AJAX
-            // To provide a seamless experience on this page, we'll use fetch
             e.preventDefault();
             const formData = new FormData(form);
             
@@ -159,12 +155,7 @@
                     form.classList.add('hidden');
                     successMessage.classList.remove('hidden');
                 } else {
-                    const data = await response.json();
-                    if (data.errors) {
-                        alert(data.errors.map(error => error.message).join(", "));
-                    } else {
-                        alert("Oops! There was a problem submitting your form.");
-                    }
+                    alert("Oops! There was a problem submitting your form.");
                 }
             } catch (error) {
                 alert("Oops! There was a problem connecting to the server.");
