@@ -5,15 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joey & Fiona's Wedding | 07.08.2027</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #b59410; --cream: #fdfbf7; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--cream); color: #333; }
-        h1, h2, .serif { font-family: 'Cormorant Garamond', serif; }
+        body { font-family: 'Playfair Display', serif; background-color: var(--cream); color: #333; overflow-x: hidden; }
+        
+        .script { font-family: 'Pinyon Script', cursive; }
+        .sans { font-family: 'Montserrat', sans-serif; }
+        
         .fade-in { animation: fadeIn 1.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .gallery-img { transition: transform 0.5s ease; cursor: pointer; }
-        .gallery-img:hover { transform: scale(1.03); }
+        
+        /* Polaroid Styling */
+        .polaroid {
+            background: white;
+            padding: 16px 16px 52px 16px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: inline-block;
+            max-width: 90vw;
+        }
+        .polaroid:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
         
         #locked-screen { position: fixed; inset: 0; z-index: 100; background: var(--cream); display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease-in-out; }
@@ -25,77 +47,100 @@
     <!-- Passcode Gatekeeper -->
     <div id="locked-screen">
         <div class="text-center px-6 max-w-sm w-full fade-in">
-            <h2 class="serif text-4xl mb-8">Joey & Fiona</h2>
-            <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-6 font-bold">Please enter your guest passcode</p>
-            <input type="password" id="passcode-input" placeholder="••••••••" class="w-full bg-white border border-gray-200 rounded-xl p-4 text-center tracking-widest outline-none focus:ring-1 focus:ring-gold transition-all mb-4">
-            <button onclick="checkPasscode()" class="w-full bg-[#b59410] text-white py-4 rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-[#947a0d] transition-all shadow-lg">
+            <h2 class="script text-6xl mb-8">Joey & Fiona</h2>
+            <p class="sans text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-6 font-semibold">Please enter your guest passcode</p>
+            <input type="password" id="passcode-input" placeholder="••••••••" class="w-full bg-white border border-gray-100 rounded-xl p-4 text-center tracking-widest outline-none focus:ring-1 focus:ring-gold transition-all mb-4">
+            <button onclick="checkPasscode()" class="sans w-full bg-[#b59410] text-white py-4 rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-[#947a0d] transition-all shadow-lg">
                 Enter Site
             </button>
-            <p id="error-msg" class="text-red-400 text-[10px] mt-4 uppercase tracking-widest hidden">Incorrect Passcode</p>
+            <p id="error-msg" class="sans text-red-400 text-[10px] mt-4 uppercase tracking-widest hidden">Incorrect Passcode</p>
         </div>
     </div>
 
-    <!-- Main Invitation Content (Hidden initially) -->
+    <!-- Main Invitation Content -->
     <div id="main-content">
-        <!-- Hero Section -->
-        <section class="min-h-[85vh] flex flex-col items-center justify-center text-center px-6 fade-in">
-            <span class="uppercase tracking-[0.4em] text-[10px] text-gray-400 mb-8 block font-bold">The pleasure of your company is requested</span>
-            <h1 class="text-7xl md:text-9xl font-light mb-6 tracking-tight">Joey & Fiona</h1>
-            <div class="flex items-center justify-center gap-6 mb-12">
-                <div class="h-px w-16 bg-gray-200"></div>
-                <p class="serif text-2xl italic text-gray-500">August Seventh, Twenty Twenty-Seven</p>
-                <div class="h-px w-16 bg-gray-200"></div>
+        <section class="min-h-[90vh] flex flex-col items-center justify-center text-center px-6 fade-in">
+            <span class="sans uppercase tracking-[0.5em] text-[10px] text-gray-400 mb-12 block font-medium">The pleasure of your company is requested</span>
+            
+            <h1 class="script text-8xl md:text-[11rem] mb-4 leading-none text-gray-800">Joey & Fiona</h1>
+            
+            <div class="flex items-center justify-center gap-8 mb-12">
+                <div class="h-px w-12 bg-gray-200"></div>
+                <p class="italic text-2xl text-gray-500">Together with their families</p>
+                <div class="h-px w-12 bg-gray-200"></div>
             </div>
-            <p class="serif text-4xl md:text-5xl mb-2 font-medium">07 . 08 . 2027</p>
-            <p class="uppercase tracking-[0.2em] text-xs text-gray-400">Five O'Clock in the Evening | Victoria, AU</p>
+            
+            <p class="text-4xl md:text-5xl mb-3 font-light tracking-wide text-gray-700">07 . 08 . 2027</p>
+            <p class="sans uppercase tracking-[0.3em] text-xs text-gray-400">Five O'Clock in the Evening | Victoria, AU</p>
         </section>
 
-        <!-- Photo Gallery -->
-        <section class="max-w-6xl mx-auto px-6 py-24">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="overflow-hidden rounded-2xl aspect-[3/4] shadow-2xl">
-                    <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%201.jpg?raw=true" alt="Joey & Fiona 1" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+1'">
-                </div>
-                <div class="overflow-hidden rounded-2xl aspect-[3/4] shadow-2xl md:translate-y-12">
-                    <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%202.jpg?raw=true" alt="Joey & Fiona 2" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+2'">
-                </div>
-                <div class="overflow-hidden rounded-2xl aspect-[3/4] shadow-2xl">
-                    <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%203.jpg?raw=true" alt="Joey & Fiona 3" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+3'">
+        <!-- Staggered Scrolling Photo Gallery -->
+        <section class="max-w-5xl mx-auto px-6 py-12 space-y-40 md:space-y-56">
+            
+            <!-- Photo 1: Left Aligned -->
+            <div class="flex justify-start">
+                <div class="polaroid -rotate-3 md:-rotate-6">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%201.jpg?raw=true" alt="Joey & Fiona 1" onerror="this.src='https://placehold.co/800x1000?text=Image+1'">
+                    </div>
                 </div>
             </div>
+
+            <!-- Photo 2: Right Aligned -->
+            <div class="flex justify-end">
+                <div class="polaroid rotate-3 md:rotate-6">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%202.jpg?raw=true" alt="Joey & Fiona 2" onerror="this.src='https://placehold.co/800x1000?text=Image+2'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 3: Centered -->
+            <div class="flex justify-center">
+                <div class="polaroid -rotate-1 md:-rotate-2">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%203.jpg?raw=true" alt="Joey & Fiona 3" onerror="this.src='https://placehold.co/800x1000?text=Image+3'">
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- Wedding Details & RSVP -->
-        <section class="max-w-3xl mx-auto px-6 pb-32">
-            <div class="bg-white p-8 md:p-20 rounded-[3rem] shadow-sm border border-gray-100 mb-20 text-center">
-                <h2 class="serif text-4xl mb-10 italic">Wedding Details</h2>
-                <div class="space-y-6 text-gray-600 mb-12">
-                    <p><strong>Venue:</strong> To Be Announced</p>
-                    <p><strong>Attire:</strong> Formal</p>
-                    <div class="h-px w-24 bg-gold/20 mx-auto my-8"></div>
-                    <p class="italic text-gold">Note: This invitation is strictly for named guests only.<br>Kids are more than welcome to join the festivities. 🧸</p>
+        <section class="max-w-3xl mx-auto px-6 py-32">
+            <div class="bg-white p-8 md:p-20 rounded-[3rem] shadow-sm border border-gray-50 mb-20 text-center">
+                <h2 class="script text-6xl mb-12 text-gray-800">Wedding Details</h2>
+                
+                <div class="space-y-6 text-gray-600 mb-12 text-lg">
+                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">The Venue</strong> To Be Announced</p>
+                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
+                    
+                    <div class="h-px w-16 bg-gold/30 mx-auto my-10"></div>
+                    
+                    <p class="italic text-gold px-4">Note: This invitation is strictly for named guests only. 
+                    <br><span class="sans text-[11px] not-italic uppercase tracking-widest block mt-2">Kids are more than welcome to join the festivities. 🧸</span></p>
                 </div>
 
                 <!-- RSVP Form -->
-                <form action="https://formspree.io/f/josephnguyen5639@gmail.com" method="POST" class="text-left space-y-6 pt-10 border-t border-gray-50">
-                    <div class="mb-6 bg-gold/5 p-4 rounded-xl border border-gold/10">
-                        <p class="text-[10px] uppercase tracking-widest text-gold font-bold text-center">Important: We have a strict headcount. Please RSVP for invited guests only.</p>
+                <form action="https://formspree.io/f/xpqbkqvo" method="POST" class="text-left space-y-6 pt-12 border-t border-gray-50">
+                    <div class="mb-8 bg-gold/5 p-5 rounded-2xl border border-gold/10">
+                        <p class="sans text-[10px] uppercase tracking-widest text-[#947a0d] font-bold text-center">Important: We have a strict headcount. Please RSVP for invited guests only.</p>
                     </div>
 
-                    <!-- Main Guest Info -->
+                    <!-- Guest 1 -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
-                            <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
+                            <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
-                            <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
+                            <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Attendance Status</label>
+                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Attendance Status</label>
                         <select name="attendance" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
                             <option value="yes">Joyfully Accept</option>
                             <option value="no">Regretfully Decline</option>
@@ -104,14 +149,14 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400 italic text-gold">Total Invited Adults</label>
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold italic">Total Invited Adults</label>
                             <select id="adults_count" name="adults_count" onchange="updateDynamicFields()" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
                                 <option value="1">1 Invited Guest</option>
                                 <option value="2">2 Invited Guests</option>
                             </select>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
                             <select id="children_count" name="children_count" onchange="updateDynamicFields()" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
                                 <option value="0">No Children</option>
                                 <option value="1">1 Child</option>
@@ -121,44 +166,42 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic Guest 2 Info -->
-                    <div id="guest-two-section" class="hidden space-y-4 pt-4 border-t border-gray-100">
+                    <!-- Guest 2 -->
+                    <div id="guest-two-section" class="hidden space-y-4 pt-6 border-t border-gray-50">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
-                                <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
+                                <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
-                                <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
+                                <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dynamic Children Section -->
-                    <div id="children-names-section" class="hidden space-y-6 pt-4 border-t border-gray-100">
-                        <div id="children-inputs-container" class="space-y-6">
-                            <!-- JS will inject children name inputs here -->
-                        </div>
+                    <!-- Children -->
+                    <div id="children-names-section" class="hidden space-y-6 pt-6 border-t border-gray-50">
+                        <div id="children-inputs-container" class="space-y-6"></div>
                     </div>
 
                     <div class="space-y-2 pt-4">
-                        <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
-                        <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments for the couple..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold"></textarea>
+                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
+                        <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif"></textarea>
                     </div>
 
-                    <div class="pt-6">
-                        <button type="submit" class="w-full bg-[#b59410] text-white py-5 rounded-full uppercase tracking-widest text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
+                    <div class="pt-8">
+                        <button type="submit" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
                             Confirm Attendance
                         </button>
-                        <p class="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-widest">Please reply by 10th March 2027</p>
+                        <p class="sans text-center text-[10px] text-gray-400 mt-8 uppercase tracking-[0.2em]">Please reply by 10th March 2027</p>
                     </div>
                 </form>
             </div>
         </section>
 
-        <footer class="text-center pb-20">
-            <p class="serif italic text-gray-400 text-3xl">With Love, Joey & Fiona</p>
+        <footer class="text-center pb-24">
+            <p class="script text-gray-400 text-5xl">With Love, Joey & Fiona</p>
         </footer>
     </div>
 
@@ -183,21 +226,14 @@
         }
 
         function updateDynamicFields() {
-            // Handle Adult Guest 2
             const adults = document.getElementById('adults_count').value;
             const guestTwoSection = document.getElementById('guest-two-section');
-            if (adults === "2") {
-                guestTwoSection.classList.remove('hidden');
-            } else {
-                guestTwoSection.classList.add('hidden');
-            }
+            guestTwoSection.classList.toggle('hidden', adults !== "2");
 
-            // Handle Children Names
             const childrenCount = parseInt(document.getElementById('children_count').value);
             const childrenSection = document.getElementById('children-names-section');
             const container = document.getElementById('children-inputs-container');
-            
-            container.innerHTML = ''; // Clear previous
+            container.innerHTML = ''; 
 
             if (childrenCount > 0) {
                 childrenSection.classList.remove('hidden');
@@ -206,12 +242,12 @@
                     div.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
                     div.innerHTML = `
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} First Name</label>
-                            <input type="text" name="child_${i}_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} First Name</label>
+                            <input type="text" name="child_${i}_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} Last Name</label>
-                            <input type="text" name="child_${i}_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} Last Name</label>
+                            <input type="text" name="child_${i}_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                         </div>
                     `;
                     container.appendChild(div);
@@ -221,12 +257,9 @@
             }
         }
 
-        document.getElementById('passcode-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkPasscode();
-            }
+        document.getElementById('passcode-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPasscode();
         });
     </script>
-
 </body>
 </html>
