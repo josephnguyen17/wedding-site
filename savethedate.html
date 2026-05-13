@@ -5,103 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save the Date | Joey & Fiona 07.08.2027</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #b59410; --cream: #fdfbf7; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--cream); }
-        h1, h2, .serif { font-family: 'Cormorant Garamond', serif; }
+        body { font-family: 'Playfair Display', serif; background-color: var(--cream); color: #333; overflow-x: hidden; }
+        
+        .script { font-family: 'Pinyon Script', cursive; }
+        .sans { font-family: 'Montserrat', sans-serif; }
+        
         .fade-in { animation: fadeIn 2s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .countdown-item { min-width: 80px; }
         
-        .gallery-img {
-            transition: transform 0.5s ease;
-            cursor: pointer;
+        .polaroid {
+            background: white;
+            padding: 16px 16px 52px 16px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: inline-block;
+            max-width: 90vw;
         }
-        .gallery-img:hover {
-            transform: scale(1.03);
+        .polaroid:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased overflow-x-hidden">
+<body class="antialiased">
 
-    <main class="min-h-screen flex flex-col items-center justify-center px-6 py-12">
-        <div class="max-w-4xl w-full text-center fade-in">
-            <span class="uppercase tracking-[0.4em] text-xs text-gray-500 mb-6 block">Please Save the Date</span>
-            <h1 class="text-6xl md:text-9xl font-light mb-4 tracking-tight">Joey & Fiona</h1>
+    <main class="min-h-screen flex flex-col items-center py-20 px-6">
+        <section class="max-w-4xl w-full text-center fade-in mb-24">
+            <span class="sans uppercase tracking-[0.5em] text-[10px] text-gray-400 mb-12 block font-medium">Kindly Save the Date</span>
             
-            <div class="flex items-center justify-center gap-4 mb-8">
-                <div class="h-px w-12 bg-gray-300"></div>
-                <p class="serif text-2xl md:text-3xl italic text-gray-600">Are getting married</p>
-                <div class="h-px w-12 bg-gray-300"></div>
+            <h1 class="script text-7xl md:text-[9rem] mb-6 leading-none text-gray-800">Joey & Fiona</h1>
+            
+            <div class="flex items-center justify-center gap-6 mb-12">
+                <div class="h-px w-10 bg-gray-200"></div>
+                <p class="italic text-xl md:text-2xl text-gray-500">are getting married</p>
+                <div class="h-px w-10 bg-gray-200"></div>
             </div>
 
             <div class="mb-12">
-                <p class="serif text-4xl md:text-5xl font-semibold mb-2">07 . 08 . 2027</p>
-                <p class="uppercase tracking-widest text-sm text-gray-500">Saturday | Victoria, Australia</p>
+                <p class="text-4xl md:text-5xl mb-3 font-light tracking-wide text-gray-700">07 . 08 . 2027</p>
+                <p class="sans uppercase tracking-[0.3em] text-[11px] text-gray-400 font-semibold">Saturday | Victoria, Australia</p>
             </div>
 
-            <div id="countdown" class="flex flex-wrap justify-center gap-4 md:gap-8 mb-16 opacity-0 transition-opacity duration-1000">
-                <div class="countdown-item">
-                    <span id="days" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Days</span>
+            <div id="countdown" class="flex flex-wrap justify-center gap-6 md:gap-12 mb-16 opacity-0 transition-opacity duration-1000">
+                <div class="text-center min-w-[70px]">
+                    <span id="days" class="text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Days</span>
                 </div>
-                <div class="countdown-item">
-                    <span id="hours" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Hours</span>
+                <div class="text-center min-w-[70px]">
+                    <span id="hours" class="text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Hours</span>
                 </div>
-                <div class="countdown-item">
-                    <span id="minutes" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Mins</span>
+                <div class="text-center min-w-[70px]">
+                    <span id="minutes" class="text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Mins</span>
                 </div>
-                <div class="countdown-item">
-                    <span id="seconds" class="serif text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="uppercase tracking-widest text-[10px] text-gray-500">Secs</span>
+                <div class="text-center min-w-[70px]">
+                    <span id="seconds" class="text-4xl md:text-5xl block text-gray-800">00</span>
+                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Secs</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-5xl w-full mx-auto space-y-40 md:space-y-64 mb-40">
+            
+            <!-- Photo 1: Left -->
+            <div class="flex justify-start">
+                <div class="polaroid -rotate-3 md:-rotate-6">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%201.jpg?raw=true" alt="Joey & Fiona 1" onerror="this.src='https://placehold.co/800x1000?text=Image+1'">
+                    </div>
                 </div>
             </div>
 
-            <div class="mb-20">
-                <h2 class="serif text-3xl md:text-4xl mb-8 italic text-gray-700">Captured Moments</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200">
-                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%201.jpg?raw=true" alt="Prewedding 1" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
-                    </div>
-                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200 md:translate-y-8">
-                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%202.jpg?raw=true" alt="Prewedding 2" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
-                    </div>
-                    <div class="overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200">
-                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%203.jpg?raw=true" alt="Prewedding 3" class="gallery-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800?text=Image+Missing'">
+            <!-- Photo 2: Right -->
+            <div class="flex justify-end">
+                <div class="polaroid rotate-3 md:rotate-6">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%202.jpg?raw=true" alt="Joey & Fiona 2" onerror="this.src='https://placehold.co/800x1000?text=Image+2'">
                     </div>
                 </div>
-                <p class="text-xs uppercase tracking-widest text-gray-400 mt-12">More to come in our formal invitation</p>
             </div>
 
-            <div class="space-y-6">
-                <p class="text-gray-500 italic max-w-lg mx-auto">
-                    Formal invitation with venue details to follow. We can't wait to celebrate with you and your families!
-                </p>
-                
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <button onclick="addToCalendar()" class="px-8 py-3 bg-[#b59410] text-white rounded-full uppercase tracking-widest text-xs font-bold hover:bg-[#947a0d] transition-all transform hover:-translate-y-1 shadow-lg">
-                        Add to Calendar
-                    </button>
-                    <a href="mailto:josephnguyen5639@gmail.com" class="px-8 py-3 border border-gray-300 rounded-full uppercase tracking-widest text-xs font-bold hover:bg-white transition-all text-gray-600">
-                        Contact Us
-                    </a>
+            <!-- Photo 3: Centered -->
+            <div class="flex justify-center">
+                <div class="polaroid -rotate-1 md:-rotate-2">
+                    <div class="w-72 md:w-80 lg:w-[420px]">
+                        <img src="https://github.com/josephnguyen17/wedding-site/blob/main/Image%203.jpg?raw=true" alt="Joey & Fiona 3" onerror="this.src='https://placehold.co/800x1000?text=Image+3'">
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section class="max-w-2xl w-full text-center space-y-12 pb-32">
+            <div class="space-y-4">
+                <h2 class="serif italic text-3xl text-gray-700">We can't wait to celebrate with you</h2>
+                <p class="sans text-[11px] uppercase tracking-[0.2em] text-gold font-bold">Formal invitation with venue details to follow</p>
+                <p class="italic text-gray-500">Note: Kids are more than welcome to join the festivities. 🧸</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                <button onclick="addToCalendar()" class="sans w-full sm:w-auto px-10 py-4 bg-[#b59410] text-white rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-[#947a0d] transition-all shadow-lg active:scale-95">
+                    Add to Calendar
+                </button>
+                <a href="mailto:josephnguyen5639@gmail.com" class="sans w-full sm:w-auto px-10 py-4 border border-gray-300 rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-white transition-all text-gray-500 text-center">
+                    Contact Us
+                </a>
+            </div>
+            
+            <footer class="pt-20">
+                <p class="script text-gray-400 text-5xl">With Love, Joey & Fiona</p>
+            </footer>
+        </section>
     </main>
 
     <script>
         const weddingDate = new Date("Aug 7, 2027 17:00:00").getTime();
-        const x = setInterval(function() {
+        const countdownTimer = setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
-            document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = d;
+            document.getElementById("hours").innerHTML = h;
+            document.getElementById("minutes").innerHTML = m;
+            document.getElementById("seconds").innerHTML = s;
+            
             document.getElementById("countdown").classList.remove('opacity-0');
         }, 1000);
 
