@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save the Date | Joey & Fiona 07.08.2027</title>
+    <title>Joey & Fiona's Wedding | 07.08.2027</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +13,7 @@
         .script { font-family: 'Pinyon Script', cursive; }
         .sans { font-family: 'Montserrat', sans-serif; }
         
-        .fade-in { animation: fadeIn 2s ease-out forwards; }
+        .fade-in { animation: fadeIn 1.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .polaroid {
@@ -34,50 +34,44 @@
             height: auto;
             display: block;
         }
+
+        select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+        
+        #locked-screen { position: fixed; inset: 0; z-index: 100; background: var(--cream); display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease-in-out; }
+        #main-content { display: none; }
     </style>
 </head>
 <body class="antialiased">
 
-    <main class="min-h-screen flex flex-col items-center py-20 px-6">
-        <section class="max-w-4xl w-full text-center fade-in mb-24">
-            <span class="sans uppercase tracking-[0.5em] text-[10px] text-gray-400 mb-12 block font-medium">Kindly Save the Date</span>
-            
-            <h1 class="script text-7xl md:text-[9rem] mb-6 leading-none text-gray-800">Joey & Fiona</h1>
-            
-            <div class="flex items-center justify-center gap-6 mb-12">
-                <div class="h-px w-10 bg-gray-200"></div>
-                <p class="italic text-xl md:text-2xl text-gray-500">are getting married</p>
-                <div class="h-px w-10 bg-gray-200"></div>
-            </div>
+    <div id="locked-screen">
+        <div class="text-center px-6 max-w-sm w-full fade-in">
+            <h2 class="script text-6xl mb-8">Joey & Fiona</h2>
+            <p class="sans text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-6 font-semibold">Please enter your guest passcode</p>
+            <input type="password" id="passcode-input" placeholder="••••••••" class="w-full bg-white border border-gray-100 rounded-xl p-4 text-center tracking-widest outline-none focus:ring-1 focus:ring-gold transition-all mb-4">
+            <button onclick="checkPasscode()" class="sans w-full bg-[#b59410] text-white py-4 rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-[#947a0d] transition-all shadow-lg">
+                Enter Site
+            </button>
+            <p id="error-msg" class="sans text-red-400 text-[10px] mt-4 uppercase tracking-widest hidden">Incorrect Passcode</p>
+        </div>
+    </div>
 
-            <div class="mb-12">
-                <p class="text-4xl md:text-5xl mb-3 font-light tracking-wide text-gray-700">07 . 08 . 2027</p>
-                <p class="sans uppercase tracking-[0.3em] text-[11px] text-gray-400 font-semibold">Saturday | Victoria, Australia</p>
+    <div id="main-content">
+        <section class="min-h-[90vh] flex flex-col items-center justify-center text-center px-6 fade-in">
+            <span class="sans uppercase tracking-[0.5em] text-[10px] text-gray-400 mb-12 block font-medium">The pleasure of your company is requested</span>
+            
+            <h1 class="script text-8xl md:text-[11rem] mb-4 leading-none text-gray-800">Joey & Fiona</h1>
+            
+            <div class="flex items-center justify-center gap-8 mb-12">
+                <div class="h-px w-12 bg-gray-200"></div>
+                <p class="italic text-2xl text-gray-500">Together with their families</p>
+                <div class="h-px w-12 bg-gray-200"></div>
             </div>
-
-            <div id="countdown" class="flex flex-wrap justify-center gap-6 md:gap-12 mb-16 opacity-0 transition-opacity duration-1000">
-                <div class="text-center min-w-[70px]">
-                    <span id="days" class="text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Days</span>
-                </div>
-                <div class="text-center min-w-[70px]">
-                    <span id="hours" class="text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Hours</span>
-                </div>
-                <div class="text-center min-w-[70px]">
-                    <span id="minutes" class="text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Mins</span>
-                </div>
-                <div class="text-center min-w-[70px]">
-                    <span id="seconds" class="text-4xl md:text-5xl block text-gray-800">00</span>
-                    <span class="sans uppercase tracking-widest text-[9px] text-gray-400 font-bold">Secs</span>
-                </div>
-            </div>
+            
+            <p class="text-4xl md:text-5xl mb-3 font-light tracking-wide text-gray-700">07 . 08 . 2027</p>
+            <p class="sans uppercase tracking-[0.3em] text-xs text-gray-400">Five O'Clock in the Evening | Victoria, AU</p>
         </section>
 
-        <section class="max-w-5xl w-full mx-auto space-y-40 md:space-y-64 mb-40">
-            
-            <!-- Photo 1: Left -->
+        <section class="max-w-5xl mx-auto px-6 py-12 space-y-40 md:space-y-56">
             <div class="flex justify-start">
                 <div class="polaroid -rotate-3 md:-rotate-6">
                     <div class="w-72 md:w-80 lg:w-[420px]">
@@ -86,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Photo 2: Right -->
             <div class="flex justify-end">
                 <div class="polaroid rotate-3 md:rotate-6">
                     <div class="w-72 md:w-80 lg:w-[420px]">
@@ -95,7 +88,6 @@
                 </div>
             </div>
 
-            <!-- Photo 3: Centered -->
             <div class="flex justify-center">
                 <div class="polaroid -rotate-1 md:-rotate-2">
                     <div class="w-72 md:w-80 lg:w-[420px]">
@@ -105,52 +97,156 @@
             </div>
         </section>
 
-        <section class="max-w-2xl w-full text-center space-y-12 pb-32">
-            <div class="space-y-4">
-                <h2 class="serif italic text-3xl text-gray-700">We can't wait to celebrate with you</h2>
-                <p class="sans text-[11px] uppercase tracking-[0.2em] text-gold font-bold">Formal invitation with venue details to follow</p>
-                <p class="italic text-gray-500">Note: Kids are more than welcome to join the festivities. 🧸</p>
-            </div>
+        <section class="max-w-3xl mx-auto px-6 py-32">
+            <div class="bg-white p-8 md:p-20 rounded-[3rem] shadow-sm border border-gray-50 mb-20 text-center">
+                <h2 class="script text-6xl mb-12 text-gray-800">Wedding Details</h2>
+                
+                <div class="space-y-6 text-gray-600 mb-12 text-lg">
+                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">The Venue</strong> To Be Announced</p>
+                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
+                    
+                    <div class="h-px w-16 bg-gold/30 mx-auto my-10"></div>
+                    
+                    <p class="italic text-gold px-4">Note: This invitation is strictly for named guests only. 
+                    <br><span class="sans text-[11px] not-italic uppercase tracking-widest block mt-2">Kids are more than welcome to join the festivities. 🧸</span></p>
+                </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                <button onclick="addToCalendar()" class="sans w-full sm:w-auto px-10 py-4 bg-[#b59410] text-white rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-[#947a0d] transition-all shadow-lg active:scale-95">
-                    Add to Calendar
-                </button>
-                <a href="mailto:josephnguyen5639@gmail.com" class="sans w-full sm:w-auto px-10 py-4 border border-gray-300 rounded-full uppercase tracking-widest text-[10px] font-bold hover:bg-white transition-all text-gray-500 text-center">
-                    Contact Us
-                </a>
+                <form action="https://formspree.io/f/xpqbkqvo" method="POST" class="text-left space-y-6 pt-12 border-t border-gray-50">
+                    <div class="mb-8 bg-gold/5 p-5 rounded-2xl border border-gold/10">
+                        <p class="sans text-[10px] uppercase tracking-widest text-[#947a0d] font-bold text-center">Important: We have a strict headcount. Please RSVP for invited guests only.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
+                            <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
+                            <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Attendance Status</label>
+                        <select name="attendance" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
+                            <option value="yes">Joyfully Accept</option>
+                            <option value="no">Regretfully Decline</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold italic">Total Invited Adults</label>
+                            <select id="adults_count" name="adults_count" onchange="updateDynamicFields()" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
+                                <option value="1">1 Invited Guest</option>
+                                <option value="2">2 Invited Guests</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
+                            <select id="children_count" name="children_count" onchange="updateDynamicFields()" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                                <option value="0">No Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                                <option value="3">3 Children</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Guest 2 Selection -->
+                    <div id="guest-two-section" class="hidden space-y-4 pt-6 border-t border-gray-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
+                                <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
+                                <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="children-names-section" class="hidden space-y-6 pt-6 border-t border-gray-50">
+                        <div id="children-inputs-container" class="space-y-6"></div>
+                    </div>
+
+                    <div class="space-y-2 pt-4">
+                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
+                        <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif"></textarea>
+                    </div>
+
+                    <div class="pt-8">
+                        <button type="submit" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
+                            Confirm Attendance
+                        </button>
+                        <p class="sans text-center text-[10px] text-gray-400 mt-8 uppercase tracking-[0.2em]">Please reply by 10th March 2027</p>
+                    </div>
+                </form>
             </div>
-            
-            <footer class="pt-20">
-                <p class="script text-gray-400 text-5xl">With Love, Joey & Fiona</p>
-            </footer>
         </section>
-    </main>
+
+        <footer class="text-center pb-24">
+            <p class="script text-gray-400 text-5xl">With Love, Joey & Fiona</p>
+        </footer>
+    </div>
 
     <script>
-        const weddingDate = new Date("Aug 7, 2027 17:00:00").getTime();
-        const countdownTimer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
+        function checkPasscode() {
+            const input = document.getElementById('passcode-input').value;
+            const error = document.getElementById('error-msg');
+            const locked = document.getElementById('locked-screen');
+            const main = document.getElementById('main-content');
             
-            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerHTML = d;
-            document.getElementById("hours").innerHTML = h;
-            document.getElementById("minutes").innerHTML = m;
-            document.getElementById("seconds").innerHTML = s;
-            
-            document.getElementById("countdown").classList.remove('opacity-0');
-        }, 1000);
-
-        function addToCalendar() {
-            const baseUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-            const details = '&text=Wedding+of+Joey+%26+Fiona&dates=20270807T070000Z/20270807T130000Z&details=Kids+welcome!+Formal+invitation+to+follow.&location=Victoria,+Australia';
-            window.open(baseUrl + details, '_blank');
+            if (input === 'JoeyFiona2027') {
+                locked.style.opacity = '0';
+                setTimeout(() => {
+                    locked.style.display = 'none';
+                    main.style.display = 'block';
+                    window.scrollTo(0, 0);
+                }, 800);
+            } else {
+                error.classList.remove('hidden');
+                document.getElementById('passcode-input').value = '';
+            }
         }
+
+        function updateDynamicFields() {
+            const adults = document.getElementById('adults_count').value;
+            const guestTwoSection = document.getElementById('guest-two-section');
+            guestTwoSection.classList.toggle('hidden', adults !== "2");
+
+            const childrenCount = parseInt(document.getElementById('children_count').value);
+            const childrenSection = document.getElementById('children-names-section');
+            const container = document.getElementById('children-inputs-container');
+            container.innerHTML = ''; 
+
+            if (childrenCount > 0) {
+                childrenSection.classList.remove('hidden');
+                for (let i = 1; i <= childrenCount; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+                    div.innerHTML = `
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} First Name</label>
+                            <input type="text" name="child_${i}_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Child ${i} Last Name</label>
+                            <input type="text" name="child_${i}_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }
+            } else {
+                childrenSection.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('passcode-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPasscode();
+        });
     </script>
 </body>
 </html>
