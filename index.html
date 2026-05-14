@@ -104,12 +104,16 @@
                 <div class="space-y-6 text-gray-600 mb-12 text-lg">
                     <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">The Venue</strong> To Be Announced</p>
                     <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
-                    
                 </div>
 
-                <form action="https://formspree.io/f/xpqbkqvo" method="POST" class="text-left space-y-6 pt-12 border-t border-gray-50">
-                    <div class="mb-8 bg-gold/5 p-5 rounded-2xl border border-gold/10">
-                        <p class="sans text-[10px] uppercase tracking-widest text-[#947a0d] font-bold text-center">Important: We have a strict headcount. Please RSVP for invited guests only.</p>
+                <!-- RSVP Form -->
+                    <p class="italic text-gold px-4">Note: This invitation is strictly for named guests only. 
+                    <br><span class="sans text-[11px] not-italic uppercase tracking-widest block mt-2">Kids are more than welcome to join the festivities. 🧸</span></p>
+                </div>
+
+                <!-- Replace the URL below with your Google Script URL from the guide -->
+                <form id="rsvp-form" class="text-left space-y-6 pt-12 border-t border-gray-50">
+                    <div id="form-status" class="hidden mb-8 p-5 rounded-2xl text-center sans text-[10px] uppercase tracking-widest font-bold"></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -174,12 +178,20 @@
                     </div>
 
                     <div class="pt-8">
-                        <button type="submit" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
+                        <button type="submit" id="submit-btn" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
                             Confirm Attendance
                         </button>
                         <p class="sans text-center text-[10px] text-gray-400 mt-8 uppercase tracking-[0.2em]">Please reply by 10th March 2027</p>
                     </div>
                 </form>
+
+                <!-- Success Message (Initially Hidden) -->
+                <div id="success-message" class="hidden py-20 text-center space-y-6 fade-in">
+                    <div class="text-6xl mb-4">🥂</div>
+                    <h2 class="script text-5xl text-gray-800">Thank you, <span id="conf-name"></span>!</h2>
+                    <p class="serif italic text-xl text-gray-500">Your response has been saved to our guest list.</p>
+                    <button onclick="window.location.reload()" class="sans text-[10px] uppercase tracking-widest text-gold font-bold border-b border-gold pb-1">Edit response</button>
+                </div>
             </div>
         </section>
 
@@ -189,6 +201,58 @@
     </div>
 
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyM0985rE3xuGaYh1u1HvRbCbEUfRGXoDNh9UjLJJ1IyOOZtZD4vd12PK7SZxc78UpG/exec'; // <-- PASTE YOUR URL HERE
+        const form = document.getElementById('rsvp-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formStatus = document.getElementById('form-status');
+        const successArea = document.getElementById('success-message');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "Sending...";
+            formStatus.classList.remove('hidden', 'bg-red-50', 'text-red-600');
+            
+            // Map the form fields to match the Sheet headers
+            const formData = new FormData(form);
+            const data = new URLSearchParams();
+            
+            // Note: Keys here must match the column headers in your Sheet exactly
+            data.append('Timestamp', new Date().toISOString());
+            data.append('Guest 1 First Name', formData.get('guest_1_firstname'));
+            data.append('Guest 1 Last Name', formData.get('guest_1_lastname'));
+            data.append('Attendance', formData.get('attendance'));
+            data.append('Total Adults', formData.get('adults_count'));
+            data.append('Total Children', formData.get('children_count'));
+            data.append('Guest 2 Name', `${formData.get('guest_2_firstname') || ''} ${formData.get('guest_2_lastname') || ''}`.trim());
+            data.append('Notes', formData.get('dietary_and_notes'));
+
+            // Collect child names into one string
+            let childNames = [];
+            for(let i=1; i<=4; i++) {
+                const fname = formData.get(`child_${i}_firstname`);
+                if(fname) childNames.push(`${fname} ${formData.get(`child_${i}_lastname`)}`);
+            }
+            data.append('Children Names', childNames.join(', '));
+
+            fetch(scriptURL, { method: 'POST', body: data })
+                .then(response => {
+                    form.classList.add('hidden');
+                    document.getElementById('conf-name').innerText = formData.get('guest_1_firstname');
+                    successArea.classList.remove('hidden');
+                    window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+                })
+                .catch(error => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "Confirm Attendance";
+                    formStatus.innerText = "Something went wrong. Please try again.";
+                    formStatus.classList.add('bg-red-50', 'text-red-600');
+                    formStatus.classList.remove('hidden');
+                    console.error('Error!', error.message);
+                });
+        });
+
         function checkPasscode() {
             const input = document.getElementById('passcode-input').value;
             const error = document.getElementById('error-msg');
