@@ -35,7 +35,16 @@
             display: block;
         }
 
-        select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 0.5rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+        select { 
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); 
+            background-position: right 0.5rem center; 
+            background-repeat: no-repeat; 
+            background-size: 1.5em 1.5em; 
+            padding-right: 2.5rem; 
+            -webkit-appearance: none; 
+            -moz-appearance: none; 
+            appearance: none; 
+        }
         
         #locked-screen { position: fixed; inset: 0; z-index: 100; background: var(--cream); display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease-in-out; }
         #main-content { display: none; }
@@ -98,100 +107,97 @@
         </section>
 
         <section class="max-w-3xl mx-auto px-6 py-32">
-            <div class="bg-white p-8 md:p-20 rounded-[3rem] shadow-sm border border-gray-50 mb-20 text-center">
-                <h2 class="script text-6xl mb-12 text-gray-800">Wedding Details</h2>
+            <div id="rsvp-container" class="bg-white p-8 md:p-20 rounded-[3rem] shadow-sm border border-gray-50 mb-20">
                 
-                <div class="space-y-6 text-gray-600 mb-12 text-lg">
-                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">The Venue</strong> To Be Announced</p>
-                    <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
-                </div>
-
-                <!-- RSVP Form -->
-                    <p class="italic text-gold px-4">Note: This invitation is strictly for named guests only. 
-                    <br><span class="sans text-[11px] not-italic uppercase tracking-widest block mt-2">Kids are more than welcome to join the festivities. 🧸</span></p>
-                </div>
-
-                <!-- Replace the URL below with your Google Script URL from the guide -->
-                <form id="rsvp-form" class="text-left space-y-6 pt-12 border-t border-gray-50">
-                    <div id="form-status" class="hidden mb-8 p-5 rounded-2xl text-center sans text-[10px] uppercase tracking-widest font-bold"></div>
+                <div id="form-wrapper">
+                    <h2 class="script text-6xl mb-12 text-gray-800 text-center">Wedding Details</h2>
+                    
+                    <div class="space-y-6 text-gray-600 mb-12 text-lg text-center">
+                        <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">The Venue</strong> To Be Announced</p>
+                        <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
-                            <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
-                            <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
-                        </div>
-                    </div>
+                    <!-- RSVP Form (No action/method attributes to prevent Formspree redirects) -->
+                    <form id="rsvp-form" class="text-left space-y-6 pt-12 border-t border-gray-50">
+                        <div id="form-status" class="hidden mb-8 p-5 rounded-2xl text-center sans text-[10px] uppercase tracking-widest font-bold"></div>
 
-                    <div class="space-y-2">
-                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Attendance Status</label>
-                        <select name="attendance" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
-                            <option value="yes">Joyfully Accept</option>
-                            <option value="no">Regretfully Decline</option>
-                        </select>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div class="space-y-2">
-                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold italic">Total Invited Adults</label>
-                            <select id="adults_count" name="adults_count" onchange="updateDynamicFields()" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
-                                <option value="1">1 Invited Guest</option>
-                                <option value="2">2 Invited Guests</option>
-                            </select>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
-                            <select id="children_count" name="children_count" onchange="updateDynamicFields()" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
-                                <option value="0">No Children</option>
-                                <option value="1">1 Child</option>
-                                <option value="2">2 Children</option>
-                                <option value="3">3 Children</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Guest 2 Selection -->
-                    <div id="guest-two-section" class="hidden space-y-4 pt-6 border-t border-gray-50">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
-                                <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 First Name</label>
+                                <input type="text" name="guest_1_firstname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                             </div>
                             <div class="space-y-2">
-                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
-                                <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Guest 1 Last Name</label>
+                                <input type="text" name="guest_1_lastname" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif">
                             </div>
                         </div>
-                    </div>
 
-                    <div id="children-names-section" class="hidden space-y-6 pt-6 border-t border-gray-50">
-                        <div id="children-inputs-container" class="space-y-6"></div>
-                    </div>
+                        <div class="space-y-2">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Attendance Status</label>
+                            <select name="attendance" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
+                                <option value="yes">Joyfully Accept</option>
+                                <option value="no">Regretfully Decline</option>
+                            </select>
+                        </div>
 
-                    <div class="space-y-2 pt-4">
-                        <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
-                        <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif"></textarea>
-                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                            <div class="space-y-2">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold italic">Total Invited Adults</label>
+                                <select id="adults_count" name="adults_count" onchange="updateDynamicFields()" required class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-medium">
+                                    <option value="1">1 Invited Guest</option>
+                                    <option value="2">2 Invited Guests</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Number of Children</label>
+                                <select id="children_count" name="children_count" onchange="updateDynamicFields()" class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold">
+                                    <option value="0">No Children</option>
+                                    <option value="1">1 Child</option>
+                                    <option value="2">2 Children</option>
+                                    <option value="3">3 Children</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="pt-8">
-                        <button type="submit" id="submit-btn" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
-                            Confirm Attendance
-                        </button>
-                        <p class="sans text-center text-[10px] text-gray-400 mt-8 uppercase tracking-[0.2em]">Please reply by 10th March 2027</p>
-                    </div>
-                </form>
+                        <!-- Guest 2 Selection -->
+                        <div id="guest-two-section" class="hidden space-y-4 pt-6 border-t border-gray-50">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 First Name</label>
+                                    <input type="text" name="guest_2_firstname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="sans text-[10px] uppercase tracking-widest font-bold text-gold">Guest 2 Last Name</label>
+                                    <input type="text" name="guest_2_lastname" class="w-full bg-gold/5 rounded-xl p-4 border border-gold/10 outline-none focus:ring-1 focus:ring-gold font-serif">
+                                </div>
+                            </div>
+                        </div>
 
-                <!-- Success Message (Initially Hidden) -->
+                        <div id="children-names-section" class="hidden space-y-6 pt-6 border-t border-gray-50">
+                            <div id="children-inputs-container" class="space-y-6"></div>
+                        </div>
+
+                        <div class="space-y-2 pt-4">
+                            <label class="sans text-[10px] uppercase tracking-widest font-bold text-gray-400">Dietary Needs & Additional Notes</label>
+                            <textarea name="dietary_and_notes" rows="3" placeholder="Any specific allergies or comments..." class="w-full bg-gray-50 rounded-xl p-4 border-none outline-none focus:ring-1 focus:ring-gold font-serif"></textarea>
+                        </div>
+
+                        <div class="pt-8">
+                            <button type="submit" id="submit-btn" class="sans w-full bg-[#b59410] text-white py-6 rounded-full uppercase tracking-[0.2em] text-xs font-bold hover:bg-[#947a0d] transition-all shadow-xl active:scale-[0.98]">
+                                Confirm Attendance
+                            </button>
+                            <p class="sans text-center text-[10px] text-gray-400 mt-8 uppercase tracking-[0.2em]">Please reply by 10th March 2027</p>
+                        </div>
+                    </form>
+                </div>
+
                 <div id="success-message" class="hidden py-20 text-center space-y-6 fade-in">
                     <div class="text-6xl mb-4">🥂</div>
                     <h2 class="script text-5xl text-gray-800">Thank you, <span id="conf-name"></span>!</h2>
                     <p class="serif italic text-xl text-gray-500">Your response has been saved to our guest list.</p>
-                    <button onclick="window.location.reload()" class="sans text-[10px] uppercase tracking-widest text-gold font-bold border-b border-gold pb-1">Edit response</button>
+                    <button onclick="window.location.reload()" class="sans text-[10px] uppercase tracking-widest text-gold font-bold border-b border-gold pb-1 mt-8">Edit response</button>
                 </div>
+
             </div>
         </section>
 
@@ -201,58 +207,79 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyM0985rE3xuGaYh1u1HvRbCbEUfRGXoDNh9UjLJJ1IyOOZtZD4vd12PK7SZxc78UpG/exec'; // <-- PASTE YOUR URL HERE
+        /**
+         * IMPORTANT: Paste your Google Web App URL (the one ending in /exec) here.
+         * Without this URL, the form will not know where to send the data.
+         */
+        const scriptURL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'; 
+
         const form = document.getElementById('rsvp-form');
         const submitBtn = document.getElementById('submit-btn');
         const formStatus = document.getElementById('form-status');
+        const formWrapper = document.getElementById('form-wrapper');
         const successArea = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
-            e.preventDefault();
+            e.preventDefault(); // This is critical: It stops the browser from redirecting
             
+            if (scriptURL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                alert('Please configure your Google Script URL in the code.');
+                return;
+            }
+
             submitBtn.disabled = true;
-            submitBtn.innerHTML = "Sending...";
-            formStatus.classList.remove('hidden', 'bg-red-50', 'text-red-600');
+            submitBtn.innerHTML = "Saving Response...";
+            formStatus.classList.add('hidden');
             
-            // Map the form fields to match the Sheet headers
             const formData = new FormData(form);
             const data = new URLSearchParams();
             
-            // Note: Keys here must match the column headers in your Sheet exactly
-            data.append('Timestamp', new Date().toISOString());
+            // Map the form fields to match the Sheet headers exactly
+            data.append('Timestamp', new Date().toLocaleString());
             data.append('Guest 1 First Name', formData.get('guest_1_firstname'));
             data.append('Guest 1 Last Name', formData.get('guest_1_lastname'));
             data.append('Attendance', formData.get('attendance'));
             data.append('Total Adults', formData.get('adults_count'));
             data.append('Total Children', formData.get('children_count'));
-            data.append('Guest 2 Name', `${formData.get('guest_2_firstname') || ''} ${formData.get('guest_2_lastname') || ''}`.trim());
-            data.append('Notes', formData.get('dietary_and_notes'));
+            
+            const guest2 = `${formData.get('guest_2_firstname') || ''} ${formData.get('guest_2_lastname') || ''}`.trim();
+            data.append('Guest 2 Name', guest2 || 'N/A');
+            
+            data.append('Notes', formData.get('dietary_and_notes') || 'None');
 
-            // Collect child names into one string
+            // Collect child names
             let childNames = [];
-            for(let i=1; i<=4; i++) {
+            for(let i=1; i<=3; i++) {
                 const fname = formData.get(`child_${i}_firstname`);
-                if(fname) childNames.push(`${fname} ${formData.get(`child_${i}_lastname`)}`);
+                const lname = formData.get(`child_${i}_lastname`);
+                if(fname) childNames.push(`${fname} ${lname}`);
             }
-            data.append('Children Names', childNames.join(', '));
+            data.append('Children Names', childNames.length > 0 ? childNames.join(', ') : 'None');
 
-            fetch(scriptURL, { method: 'POST', body: data })
-                .then(response => {
-                    form.classList.add('hidden');
-                    document.getElementById('conf-name').innerText = formData.get('guest_1_firstname');
-                    successArea.classList.remove('hidden');
-                    window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
-                })
-                .catch(error => {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = "Confirm Attendance";
-                    formStatus.innerText = "Something went wrong. Please try again.";
-                    formStatus.classList.add('bg-red-50', 'text-red-600');
-                    formStatus.classList.remove('hidden');
-                    console.error('Error!', error.message);
-                });
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', // Use no-cors to avoid cross-origin blocks
+                body: data 
+            })
+            .then(() => {
+                // Since we use no-cors, we won't get a readable JSON back, 
+                // but we can assume success if the fetch completes.
+                formWrapper.classList.add('hidden');
+                document.getElementById('conf-name').innerText = formData.get('guest_1_firstname');
+                successArea.classList.remove('hidden');
+                window.scrollTo({ top: document.getElementById('rsvp-container').offsetTop - 50, behavior: 'smooth' });
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = "Confirm Attendance";
+                formStatus.innerText = "Error: Could not save RSVP. Please try again.";
+                formStatus.classList.add('bg-red-50', 'text-red-600');
+                formStatus.classList.remove('hidden');
+                console.error('Submission Error:', error);
+            });
         });
 
+        // Passcode Validation Logic
         function checkPasscode() {
             const input = document.getElementById('passcode-input').value;
             const error = document.getElementById('error-msg');
@@ -272,6 +299,7 @@
             }
         }
 
+        // Logic for Dynamic Form Fields (Guest 2 and Kids)
         function updateDynamicFields() {
             const adults = document.getElementById('adults_count').value;
             const guestTwoSection = document.getElementById('guest-two-section');
@@ -304,6 +332,7 @@
             }
         }
 
+        // Listen for Enter key on passcode
         document.getElementById('passcode-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkPasscode();
         });
