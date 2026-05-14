@@ -211,7 +211,7 @@
          * IMPORTANT: Paste your Google Web App URL (the one ending in /exec) here.
          * Without this URL, the form will not know where to send the data.
          */
-        const scriptURL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyM0985rE3xuGaYh1u1HvRbCbEUfRGXoDNh9UjLJJ1IyOOZtZD4vd12PK7SZxc78UpG/exec'; 
 
         const form = document.getElementById('rsvp-form');
         const submitBtn = document.getElementById('submit-btn');
@@ -222,7 +222,7 @@
         form.addEventListener('submit', e => {
             e.preventDefault(); // This is critical: It stops the browser from redirecting
             
-            if (scriptURL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
+            if (scriptURL === 'https://script.google.com/macros/s/AKfycbyM0985rE3xuGaYh1u1HvRbCbEUfRGXoDNh9UjLJJ1IyOOZtZD4vd12PK7SZxc78UpG/exec') {
                 alert('Please configure your Google Script URL in the code.');
                 return;
             }
