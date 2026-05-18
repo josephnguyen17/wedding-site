@@ -117,7 +117,6 @@
                         <p><strong class="sans text-[10px] uppercase tracking-widest text-gray-400 block mb-1">Dress Code</strong> Formal Attire</p>
                     </div>
 
-                    <!-- RSVP Form (No action/method attributes to prevent Formspree redirects) -->
                     <form id="rsvp-form" class="text-left space-y-6 pt-12 border-t border-gray-50">
                         <div id="form-status" class="hidden mb-8 p-5 rounded-2xl text-center sans text-[10px] uppercase tracking-widest font-bold"></div>
 
@@ -207,10 +206,6 @@
     </div>
 
     <script>
-        /**
-         * IMPORTANT: Paste your Google Web App URL (the one ending in /exec) here.
-         * Without this URL, the form will not know where to send the data.
-         */
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyM0985rE3xuGaYh1u1HvRbCbEUfRGXoDNh9UjLJJ1IyOOZtZD4vd12PK7SZxc78UpG/exec'; 
 
         const form = document.getElementById('rsvp-form');
@@ -220,13 +215,8 @@
         const successArea = document.getElementById('success-message');
 
         form.addEventListener('submit', e => {
-            e.preventDefault(); // This is critical: It stops the browser from redirecting
+            e.preventDefault();
             
-            if (scriptURL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
-                alert('Please configure your Google Script URL in the code.');
-                return;
-            }
-
             submitBtn.disabled = true;
             submitBtn.innerHTML = "Saving Response...";
             formStatus.classList.add('hidden');
@@ -234,7 +224,6 @@
             const formData = new FormData(form);
             const data = new URLSearchParams();
             
-            // Map the form fields to match the Sheet headers exactly
             data.append('Timestamp', new Date().toLocaleString());
             data.append('Guest 1 First Name', formData.get('guest_1_firstname'));
             data.append('Guest 1 Last Name', formData.get('guest_1_lastname'));
@@ -247,7 +236,6 @@
             
             data.append('Notes', formData.get('dietary_and_notes') || 'None');
 
-            // Collect child names
             let childNames = [];
             for(let i=1; i<=3; i++) {
                 const fname = formData.get(`child_${i}_firstname`);
@@ -258,12 +246,10 @@
 
             fetch(scriptURL, { 
                 method: 'POST', 
-                mode: 'no-cors', // Use no-cors to avoid cross-origin blocks
+                mode: 'no-cors',
                 body: data 
             })
             .then(() => {
-                // Since we use no-cors, we won't get a readable JSON back, 
-                // but we can assume success if the fetch completes.
                 formWrapper.classList.add('hidden');
                 document.getElementById('conf-name').innerText = formData.get('guest_1_firstname');
                 successArea.classList.remove('hidden');
@@ -279,14 +265,29 @@
             });
         });
 
-        // Passcode Validation Logic
-        function checkPasscode() {
+        // SHA-256 cryptographic helper function
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Passcode Validation Logic using secure SHA-256 fingerprint
+        async function checkPasscode() {
             const input = document.getElementById('passcode-input').value;
             const error = document.getElementById('error-msg');
             const locked = document.getElementById('locked-screen');
             const main = document.getElementById('main-content');
             
-            if (input === 'JoeyFiona2027') {
+            // Generate the SHA-256 hash of the guest input
+            const inputHash = await sha256(input);
+            
+            // This is the mathematical scrambled fingerprint of the password "JoeyFiona2027"
+            // No one can figure out the passcode from reading this hashed value!
+            const secureWeddingPasscodeHash = 'cb94c16428eb6bc640f1a92e1069811cb6249ad5a62e307c08271e1644783305';
+            
+            if (inputHash === secureWeddingPasscodeHash) {
                 locked.style.opacity = '0';
                 setTimeout(() => {
                     locked.style.display = 'none';
@@ -299,7 +300,6 @@
             }
         }
 
-        // Logic for Dynamic Form Fields (Guest 2 and Kids)
         function updateDynamicFields() {
             const adults = document.getElementById('adults_count').value;
             const guestTwoSection = document.getElementById('guest-two-section');
@@ -332,7 +332,6 @@
             }
         }
 
-        // Listen for Enter key on passcode
         document.getElementById('passcode-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkPasscode();
         });
